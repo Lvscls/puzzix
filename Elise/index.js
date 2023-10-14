@@ -6,11 +6,16 @@ const server = http.createServer((req, res) => {
 
     req.on("data", (data) => {
       body += data;
+/*       console.log(body) */
     });
 
+   
+
     req.on("end", () => {
+      const bodysplit = body.split(",")
+      console.log(bodysplit)
       const effect = new transformImage();
-      result = effect.applyEffect(body)
+      result = effect.applyEffect(bodysplit[0],bodysplit[1])
       .then(result => {
         res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(result));

@@ -3,7 +3,6 @@ const path = require('path');
 
 class StockImage {
   stock(image) {
-    console.log(image)
     const jsonPath = path.join(__dirname, '..', 'images', 'images.json');
     let data = [];
     try {
@@ -11,7 +10,6 @@ class StockImage {
     } catch (err) {
       console.log(err)
     }
-    console.log(data)
 
     data.push(image);
 

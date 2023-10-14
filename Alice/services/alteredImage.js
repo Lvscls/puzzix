@@ -1,7 +1,6 @@
 async function getAlteredImage() {
   try {
-    const response = await fetch('http://localhost:8080/altered-image');
-
+    const response = await fetch('http://localhost:8080/altered-image')
     if (response.ok) {
       const imageData = await response.json();
       return imageData;

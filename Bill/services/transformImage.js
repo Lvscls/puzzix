@@ -5,53 +5,41 @@ class TransformeImage {
   async sequencage(image, steps) {
     const effectsType = list.effects;
     const filtersType = list.filters;
-    const imagesAltered = [];
-    console.log(steps);
+    let newTransform = ""
+  
     for (const step in steps) {
-
       const value = steps[step];
-
       if (effectsType.includes(step)) {
-        image = await this.applyEffect(image, step, value);
-        imagesAltered.push(image);
+        newTransform += await this.applyEffect(step, value);
       } else if (filtersType.includes(step)) {
-        image = await this.applyFilter(image, step, value);
-        imagesAltered.push(image);
+        newTransform += await this.applyFilter(step, value);
       }
     }
-    console.log(image)
-    return image;
+    const newImage = image + newTransform
+    return newImage; 
   }
-  async applyEffect(image, effectType, params) {
+  async applyEffect(effectType, params) {
     const response = await fetch("http://localhost:4002/effect", {
       method: "POST",
-      body: JSON.stringify({
-        image: image,
-        effectType: effectType,
-        params: params,
-      }),
+      body: [effectType, params],
       headers: {
         "Content-Type": "application/json",
       },
     });
-    const effects = await response.text();
+    const effects = await response.json();
     return effects;
   }
 
-  async applyFilter(image, filterType, params) {
+  async applyFilter(filterType, params) {
     const response = await fetch("http://localhost:4001/filter", {
       method: "POST",
-      body: JSON.stringify({
-        image: image,
-        filterType: filterType,
-        params: params,
-      }),
+      body: [filterType, params],
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    const filters = await response.text();
+    const filters = await response.json();
     return filters;
   }
   getStepsinFile() {

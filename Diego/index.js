@@ -9,8 +9,10 @@ const server = http.createServer((req, res) => {
     });
 
     req.on("end", () => {
-      const effect = new transformImage();
-      result = effect.applyFilter(body)
+      const bodysplit = body.split(",")
+      console.log(bodysplit)
+      const filter = new transformImage();
+      result = filter.applyFilter(bodysplit[0],bodysplit[1])
       .then(result => {
         res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(result));

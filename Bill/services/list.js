@@ -1,4 +1,4 @@
 const effects = ["rotation","mirror"]
-const filters=["blur","color","brightness"]
+const filters=["blur","coloration"]
 
 module.exports = {effects, filters}

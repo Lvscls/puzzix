@@ -1,6 +1,6 @@
 class transformImage {
-    async applyEffect(image,effectType,params){
-        const effect = image + effectType + params;
+    async applyEffect(effectType,params){
+        const effect = effectType + params;
         return effect
     }
 }

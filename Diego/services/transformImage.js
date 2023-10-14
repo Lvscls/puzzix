@@ -1,6 +1,6 @@
 class transformImage {
-  async applyFilter(image,filterType,params){
-    const filter = image + filterType + params;
+  async applyFilter(filterType,params){
+    const filter = filterType + params;
     return filter
 }
 }

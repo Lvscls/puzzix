@@ -26,15 +26,18 @@ const server = http.createServer((req, res) => {
     const imageData = originImage.getImage()
     .then(imageData => {
       steps = transformImage.getStepsinFile();
-      result = transformImage.sequencage(imageData, steps);
-      res.end(JSON.stringify(result));
+      result = transformImage.sequencage(imageData, steps).then(result => {
+        res.statusCode = 200;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify(result));
+      });
     })
     .catch(error => {
       res.statusCode = 500; 
       res.end("Internal Server Error");
     });
   } else {
-    res.end("Bill");
+    res.end("Bill");s
   }
 });
 
